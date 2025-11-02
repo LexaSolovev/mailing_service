@@ -16,7 +16,7 @@ def send_mailing_service(mailing):
     # Если это первая отправка, сохраняем время
     if not mailing.first_sent:
         mailing.first_sent = timezone.now()
-        mailing.save(update_fields=['first_sent'])
+        mailing.save(update_fields=["first_sent"])
 
     success_count = 0
     failure_count = 0
@@ -31,7 +31,7 @@ def send_mailing_service(mailing):
                 fail_silently=False,
             )
             status = Attempt.STATUS_SUCCESS
-            response = 'Сообщение успешно отправлено'
+            response = "Сообщение успешно отправлено"
             success_count += 1
         except Exception as e:
             status = Attempt.STATUS_FAILURE
@@ -39,10 +39,7 @@ def send_mailing_service(mailing):
             failure_count += 1
 
         Attempt.objects.create(
-            mailing=mailing,
-            client=client,
-            status=status,
-            server_response=response
+            mailing=mailing, client=client, status=status, server_response=response
         )
 
     # Проверяем статус после отправки

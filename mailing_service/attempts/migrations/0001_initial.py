@@ -7,22 +7,44 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Attempt',
+            name="Attempt",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('attempt_time', models.DateTimeField(auto_now_add=True, verbose_name='Дата и время попытки')),
-                ('status', models.CharField(choices=[('success', 'Успешно'), ('failure', 'Не успешно')], max_length=10, verbose_name='Статус')),
-                ('server_response', models.TextField(blank=True, verbose_name='Ответ сервера')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "attempt_time",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата и время попытки"
+                    ),
+                ),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[("success", "Успешно"), ("failure", "Не успешно")],
+                        max_length=10,
+                        verbose_name="Статус",
+                    ),
+                ),
+                (
+                    "server_response",
+                    models.TextField(blank=True, verbose_name="Ответ сервера"),
+                ),
             ],
             options={
-                'verbose_name': 'Попытка рассылки',
-                'verbose_name_plural': 'Попытки рассылки',
-                'ordering': ['-attempt_time'],
+                "verbose_name": "Попытка рассылки",
+                "verbose_name_plural": "Попытки рассылки",
+                "ordering": ["-attempt_time"],
             },
         ),
     ]

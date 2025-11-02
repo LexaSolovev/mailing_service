@@ -8,46 +8,65 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('clients', '0002_initial'),
-        ('mailings', '0003_initial'),
-        ('my_messages', '0002_initial'),
+        ("clients", "0002_initial"),
+        ("mailings", "0003_initial"),
+        ("my_messages", "0002_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='mailing',
-            name='first_sent',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='Дата первой отправки'),
+            model_name="mailing",
+            name="first_sent",
+            field=models.DateTimeField(
+                blank=True, null=True, verbose_name="Дата первой отправки"
+            ),
         ),
         migrations.AlterField(
-            model_name='mailing',
-            name='clients',
-            field=models.ManyToManyField(to='clients.client', verbose_name='Клиенты'),
+            model_name="mailing",
+            name="clients",
+            field=models.ManyToManyField(to="clients.client", verbose_name="Клиенты"),
         ),
         migrations.AlterField(
-            model_name='mailing',
-            name='end_time',
-            field=models.DateTimeField(verbose_name='Время окончания рассылки'),
+            model_name="mailing",
+            name="end_time",
+            field=models.DateTimeField(verbose_name="Время окончания рассылки"),
         ),
         migrations.AlterField(
-            model_name='mailing',
-            name='message',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='my_messages.message', verbose_name='Сообщение'),
+            model_name="mailing",
+            name="message",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="my_messages.message",
+                verbose_name="Сообщение",
+            ),
         ),
         migrations.AlterField(
-            model_name='mailing',
-            name='owner',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Владелец'),
+            model_name="mailing",
+            name="owner",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+                verbose_name="Владелец",
+            ),
         ),
         migrations.AlterField(
-            model_name='mailing',
-            name='start_time',
-            field=models.DateTimeField(verbose_name='Время начала рассылки'),
+            model_name="mailing",
+            name="start_time",
+            field=models.DateTimeField(verbose_name="Время начала рассылки"),
         ),
         migrations.AlterField(
-            model_name='mailing',
-            name='status',
-            field=models.CharField(choices=[('created', 'Создана'), ('started', 'Запущена'), ('completed', 'Завершена')], default='created', max_length=10, verbose_name='Статус'),
+            model_name="mailing",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("created", "Создана"),
+                    ("started", "Запущена"),
+                    ("completed", "Завершена"),
+                ],
+                default="created",
+                max_length=10,
+                verbose_name="Статус",
+            ),
         ),
     ]

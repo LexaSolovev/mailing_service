@@ -1,6 +1,7 @@
 from django.db import models
 from users.models import User
 
+
 class Client(models.Model):
     email = models.EmailField(unique=True)
     full_name = models.CharField(max_length=255)

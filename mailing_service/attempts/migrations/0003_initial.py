@@ -9,26 +9,34 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('attempts', '0002_initial'),
-        ('mailings', '0001_initial'),
+        ("attempts", "0002_initial"),
+        ("mailings", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='attempt',
-            name='mailing',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='mailings.mailing', verbose_name='Рассылка'),
+            model_name="attempt",
+            name="mailing",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to="mailings.mailing",
+                verbose_name="Рассылка",
+            ),
         ),
         migrations.AddIndex(
-            model_name='attempt',
-            index=models.Index(fields=['status'], name='attempts_at_status_3196f6_idx'),
+            model_name="attempt",
+            index=models.Index(fields=["status"], name="attempts_at_status_3196f6_idx"),
         ),
         migrations.AddIndex(
-            model_name='attempt',
-            index=models.Index(fields=['mailing'], name='attempts_at_mailing_8fbb3b_idx'),
+            model_name="attempt",
+            index=models.Index(
+                fields=["mailing"], name="attempts_at_mailing_8fbb3b_idx"
+            ),
         ),
         migrations.AddIndex(
-            model_name='attempt',
-            index=models.Index(fields=['attempt_time'], name='attempts_at_attempt_18675a_idx'),
+            model_name="attempt",
+            index=models.Index(
+                fields=["attempt_time"], name="attempts_at_attempt_18675a_idx"
+            ),
         ),
     ]
