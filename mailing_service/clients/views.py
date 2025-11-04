@@ -9,9 +9,10 @@ from django.views.generic import (
 from django.urls import reverse_lazy
 from .models import Client
 from .forms import ClientForm
+from core.permissions import CanViewAllMixin, OwnerRequiredMixin
 
 
-class ClientListView(ListView):
+class ClientListView(LoginRequiredMixin, CanViewAllMixin, ListView):
     model = Client
     template_name = "clients/client_list.html"
     context_object_name = "clients"
@@ -28,19 +29,19 @@ class ClientCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class ClientDetailView(DetailView):
+class ClientDetailView(LoginRequiredMixin, DetailView):
     model = Client
     template_name = "clients/client_detail.html"
 
 
-class ClientUpdateView(UpdateView):
+class ClientUpdateView(LoginRequiredMixin, CanViewAllMixin, UpdateView):
     model = Client
     form_class = ClientForm
     template_name = "clients/client_form.html"
     success_url = reverse_lazy("clients:list")
 
 
-class ClientDeleteView(DeleteView):
+class ClientDeleteView(LoginRequiredMixin, DeleteView):
     model = Client
     template_name = "clients/client_confirm_delete.html"
     success_url = reverse_lazy("clients:list")

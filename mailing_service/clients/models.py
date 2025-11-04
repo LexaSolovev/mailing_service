@@ -8,5 +8,13 @@ class Client(models.Model):
     comment = models.TextField(blank=True)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = 'Клиент'
+        verbose_name_plural = 'Клиенты'
+        permissions = [
+            ("can_view_all_clients", "Может просматривать всех клиентов"),
+            ("can_block_client", "Может блокировать клиентов"),
+        ]
+
     def __str__(self):
         return f"{self.full_name} ({self.email})"

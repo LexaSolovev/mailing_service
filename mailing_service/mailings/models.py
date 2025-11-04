@@ -32,6 +32,16 @@ class Mailing(models.Model):
         "users.User", on_delete=models.CASCADE, verbose_name="Владелец"
     )
 
+    class Meta:
+        verbose_name = 'Рассылка'
+        verbose_name_plural = 'Рассылки'
+        ordering = ['-start_time']
+        permissions = [
+            ("can_view_all_mailings", "Может просматривать все рассылки"),
+            ("can_disable_mailing", "Может отключать рассылки"),
+            ("can_block_mailing", "Может блокировать рассылки"),
+        ]
+
     def __str__(self):
         return f"Рассылка #{self.id} ({self.get_status_display()})"
 
