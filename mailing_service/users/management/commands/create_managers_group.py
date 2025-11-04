@@ -7,11 +7,11 @@ from my_messages.models import Message
 
 
 class Command(BaseCommand):
-    help = 'Создает группу менеджеров с необходимыми правами доступа'
+    help = "Создает группу менеджеров с необходимыми правами доступа"
 
     def handle(self, *args, **options):
         # Создаем или получаем группу менеджеров
-        managers_group, created = Group.objects.get_or_create(name='Менеджеры')
+        managers_group, created = Group.objects.get_or_create(name="Менеджеры")
 
         if created:
             self.stdout.write('Группа "Менеджеры" создана')
@@ -25,16 +25,20 @@ class Command(BaseCommand):
 
         # Добавляем разрешения для менеджеров
         permissions = Permission.objects.filter(
-            content_type__in=[client_content_type, mailing_content_type, message_content_type],
+            content_type__in=[
+                client_content_type,
+                mailing_content_type,
+                message_content_type,
+            ],
             codename__in=[
-                'can_view_all_clients',
-                'can_block_client',
-                'can_view_all_mailings',
-                'can_disable_mailing',
-                'can_block_mailing',
-                'can_view_all_messages',
-                'can_block_message',
-            ]
+                "can_view_all_clients",
+                "can_block_client",
+                "can_view_all_mailings",
+                "can_disable_mailing",
+                "can_block_mailing",
+                "can_view_all_messages",
+                "can_block_message",
+            ],
         )
 
         managers_group.permissions.set(permissions)

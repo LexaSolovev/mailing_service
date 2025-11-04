@@ -33,9 +33,9 @@ class Mailing(models.Model):
     )
 
     class Meta:
-        verbose_name = 'Рассылка'
-        verbose_name_plural = 'Рассылки'
-        ordering = ['-start_time']
+        verbose_name = "Рассылка"
+        verbose_name_plural = "Рассылки"
+        ordering = ["-start_time"]
         permissions = [
             ("can_view_all_mailings", "Может просматривать все рассылки"),
             ("can_disable_mailing", "Может отключать рассылки"),
