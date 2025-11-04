@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Детали рассылки #{{ mailing.id }}</h2>
+    
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">{{ mailing.message.subject }}</h5>
+            <p class="card-text">
+                <strong>Статус:</strong> {{ mailing.get_status_display }}<br>
+                <strong>Начало:</strong> {{ mailing.start_time|date:"d.m.Y H:i" }}<br>
+                <strong>Окончание:</strong> {{ mailing.end_time|date:"d.m.Y H:i" }}<br>
+                <strong>Клиентов:</strong> {{ mailing.clients.count }}<br>
+                <strong>Успешных отправок:</strong> {{ success_count }}<br>
+                <strong>Неудачных отправок:</strong> {{ failure_count }}
+            </p>
+            
+            <div class="btn-group">
+                <a href="{% url 'mailings:update' mailing.id %}" class="btn btn-primary">Редактировать</a>
+                <a href="{% url 'mailings:delete' mailing.id %}" class="btn btn-danger">Удалить</a>
+                {% if mailing.status == 'created' %}
+                <a href="{% url 'mailings:send' mailing.id %}" class="btn btn-success">Отправить сейчас</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <h4>Последние попытки отправки</h4>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Дата</th>
+                <th>Клиент</th>
+                <th>Статус</th>
+                <th>Ответ сервера</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for attempt in attempts %}
+            <tr>
+                <td>{{ attempt.attempt_time|date:"d.m.Y H:i" }}</td>
+                <td>{{ attempt.client.full_name }}</td>
+                <td>{{ attempt.get_status_display }}</td>
+                <td>{{ attempt.server_response|truncatechars:50 }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Попыток отправки еще не было</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="{% url 'mailings:list' %}" class="btn btn-secondary">Назад к списку</a>
+</div>
+{% endblock %}
